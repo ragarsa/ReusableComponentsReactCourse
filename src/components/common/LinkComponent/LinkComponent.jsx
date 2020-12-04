@@ -1,4 +1,4 @@
-function LinkComponent ({url, title}) {
+function LinkComponent ({ url, title }) {
   return (
     <a
       className="App-link"

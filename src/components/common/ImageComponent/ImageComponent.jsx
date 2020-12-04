@@ -1,9 +1,9 @@
 import './styles.css';
 
-function ImageComponent (props) {
+function ImageComponent ({ img }) {
 
   return(
-    <img src={props.img} className="App-logo" alt="logo" />
+    <img src={img} className="App-logo" alt="logo" />
   )
 }
 

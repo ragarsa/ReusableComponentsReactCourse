@@ -1,13 +1,13 @@
 import './styles.css';
 
-function AppContainer (props) {
+function AppContainer ({ children }) {
 
   return (
     <div className="App">
       <header className="App-header">
-        {props.children}
+        {children}
       </header>
-    </div>  
+    </div>
   )
 };
 

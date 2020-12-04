@@ -6,6 +6,7 @@ import ImageComponent from '../common/ImageComponent/ImageComponent';
 import LinkComponent from '../common/LinkComponent/LinkComponent';
 import ParagraphComponent from '../common/ParagraphComponent/ParagraphComponent';
 import TitleComponent from '../common/TitleComponent/TitleComponent';
+import ArticleContainer from '../common/ArticleContainer/ArticleContainer';
 
 class AppClass extends React.Component {
 
@@ -27,13 +28,24 @@ class AppClass extends React.Component {
     const { counter } = this.state;
 
     return (
+      <>
       <AppContainer>
         <ImageComponent img={logo} />
         <ParagraphComponent text={'Hola desde mi componente reutilizable aca en mi componente de clase'} />
-        <LinkComponent url={"https://github.com/Cova14"} title={"Cheka mi github"} />
-        <ButtonComponent handleClick={this.increment} text={'Pikale aki ira nomames'} />
+        <LinkComponent
+          url={"https://github.com/Cova14"}
+          title={"Cheka mi github"}
+        />
+        <ButtonComponent
+          handleClick={this.increment}
+          text={'Pikale aki ira nomames'}
+        />
         <TitleComponent text={counter} />
       </AppContainer>
+      <ArticleContainer>
+        <TitleComponent text={'HOLA ESTOY EN UN ARTICLE'} />
+      </ArticleContainer>
+      </>
     );
   }
 }

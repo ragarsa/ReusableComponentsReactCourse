@@ -1,4 +1,4 @@
-function ButtonComponent ({handleClick, text}) {
+function ButtonComponent ({ handleClick, text }) {
   return (
     <button onClick={handleClick} >{text}</button>
   )

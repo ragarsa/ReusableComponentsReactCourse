@@ -1,9 +1,9 @@
 import './styles.css';
 
-function ParagraphComponent (props) {
+function ParagraphComponent ({ className, text }) {
   return(
-    <p className={props.className} >
-      {props.text}
+    <p className={className} >
+      {text}
     </p>
   )
 }

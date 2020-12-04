@@ -1,4 +1,4 @@
-function TitleComponent ({text}) {
+function TitleComponent ({ text }) {
   return (
     <h1>{text}</h1>
   )
