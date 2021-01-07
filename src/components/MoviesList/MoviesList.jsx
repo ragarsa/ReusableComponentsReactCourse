@@ -1,5 +1,6 @@
 import { Component } from 'react'
-import MovieDetail from '../MovieDetail/'
+import MovieDetail from '../MovieDetail'
+import MovieForm from '../MovieForm'
 
 class MoviesList extends Component {
 
@@ -10,7 +11,7 @@ class MoviesList extends Component {
                 {
                     title: 'Cars',
                     img: 'https://r1.abcimg.es/resizer/resizer.php?imagen=https%3A%2F%2Fstatic1.abc.es%2Fmedia%2Fpeliculas%2F000%2F019%2F042%2Fcars-2.jpg&nuevoancho=620&medio=abc',
-                    description: 'Es una película de carros que hablan para niños',
+                    description: 'Es una película de carros que hablan para niños Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae nulla non voluptatum quasi molestias cumque cum, dolorem atque aliquid repellendus nemo odio asperiores nobis voluptate doloribus eaque similique officiis vitae!Illum odit dolor natus, similique aperiam veniam reiciendis commodi error asperiores laudantium quos sed laborum aliquid adipisci nulla tenetur praesentium quaerat aspernatur voluptatibus. Voluptas placeat distinctio quisquam error necessitatibus velit.',
                     characters: [
                         {
                             name: 'Rayo Macuin',
@@ -47,16 +48,57 @@ class MoviesList extends Component {
                     description: 'Pollos que intentan huir',
                     characters: []
                 }
-            ]
+            ],
+            newMovie: {
+                title: '' ,
+                img:'' ,
+                description: ''    
+            }
         }
     }
+
+handleChangeTitle = (event) => {
+    console.log(event.target.value)
+    this.setState({
+        newMovie: { ...this.state.newMovie, title: event.target.value }
+    })
+}
+
+handleChangeImg = (event) =>{
+    console.log(event.target.value)
+    this.setState({
+        newMovie: { ...this.state.newMovie, img: event.target.value}
+    })
+}
+
+handleChangeDesc = (event) =>{
+    console.log(event.target.value)
+    this.setState({
+        newMovie: { ...this.state.newMovie, description: event.target.value}
+    })
+}
+
+handleAddMovie = (event) => {
+    event.preventDefault()
+    const { movies, newMovie } = this.state
+    newMovie.characters = []
+    movies.push(newMovie)
+    this.setState({ movies })
+}
 
     render() {
         const { movies } = this.state
         return (
             <>
-                {movies.map(movie =>
-                    <MovieDetail movie={movie} />
+                <MovieForm 
+                    handleChangeTitle={this.handleChangeTitle}
+                    handleChangeImg={this.handleChangeImg}
+                    handleChangeDesc={this.handleChangeDesc}
+                    handleAddMovie = {this.handleAddMovie}
+                    form={this.state.newMovie}
+                />
+                { movies.map(movie =>
+                    <MovieDetail movie={ movie } />
                 )}
             </>
         )
