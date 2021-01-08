@@ -50,55 +50,153 @@ class MoviesList extends Component {
                 }
             ],
             newMovie: {
-                title: '' ,
-                img:'' ,
-                description: ''    
-            }
+                title: '',
+                img: '',
+                description: ''
+            },
+            isUpdating : false 
         }
     }
 
-handleChangeTitle = (event) => {
-    console.log(event.target.value)
-    this.setState({
-        newMovie: { ...this.state.newMovie, title: event.target.value }
-    })
-}
+    // handleChangeTitle = (event) => {
+    //     console.log(event.target.value)
+    //     this.setState({
+    //         newMovie: { ...this.state.newMovie, title: event.target.value }
+    //     })
+    // }
 
-handleChangeImg = (event) =>{
-    console.log(event.target.value)
-    this.setState({
-        newMovie: { ...this.state.newMovie, img: event.target.value}
-    })
-}
+    // handleChangeImg = (event) =>{
+    //     console.log(event.target.value)
+    //     this.setState({
+    //         newMovie: { ...this.state.newMovie, img: event.target.value}
+    //     })
+    // }
 
-handleChangeDesc = (event) =>{
-    console.log(event.target.value)
-    this.setState({
-        newMovie: { ...this.state.newMovie, description: event.target.value}
-    })
-}
+    // handleChangeDesc = (event) =>{
+    //     console.log(event.target.value)
+    //     this.setState({
+    //         newMovie: { ...this.state.newMovie, description: event.target.value}
+    //     })
+    // }
 
-handleAddMovie = (event) => {
-    event.preventDefault()
-    const { movies, newMovie } = this.state
-    newMovie.characters = []
-    movies.push(newMovie)
-    this.setState({ movies })
-}
+    //object.property
+    //object['prop]
+
+    setInitialState = () => {
+        this.setState({
+            newMovie: {
+                title: '',
+                img: '',
+                description: ''
+            }
+        })
+    }
+
+
+    handleRepeatedMovie = () => {
+        return this.state.movies.some(movie => 
+            movie.title.toLowerCase().trim() === this.state.newMovie.title.toLowerCase().trim()
+        )
+       
+    }
+
+    handleValidateInput = () => {
+        // console.log(this.state.newMovie);
+        const { title, img, description } = this.state.newMovie
+
+        // const siExiste = this.state.movies.includes({title:'Toy Story'})
+        // console.log(siExiste)
+
+       
+        // console.log(!!title)
+        // console.log(img)
+        // console.log(description)
+
+        // if (title && img && description) {
+        //     if(this.handleRepeatedMovie()){
+        //         alert('Ya existe la película')
+        //         return false
+        //     }
+        //     return true
+        //     // console.log(this.state.newMovie)
+        //     // console.log('Todos están chidos')
+        // } else {
+        //     alert('Todos los campos deben ser requeridos')
+        //     return false
+        // }
+        
+        if (!title || !img || !description) {
+            alert('Todos los campos deben ser requeridos');
+            return false
+
+        }
+
+        if (!this.handleRepeatedMovie()) {
+            alert('Ya existe la película')
+            return false
+        }
+        return true
+    }
+
+    handleChangeNewMovie = (event) => {
+        this.setState({
+            newMovie: { ...this.state.newMovie, [event.target.name]: event.target.value }
+        })
+    }
+
+    handleAddMovie = (event) => {
+        event.preventDefault()
+
+        // const isValidated = this.handleValidateInput()
+       
+        if (this.handleValidateInput()) {
+            const { movies, newMovie } = this.state
+            newMovie.characters = []
+            movies.push(newMovie);
+            this.setState({ movies });
+            alert('La película fue agregada con éxito');
+            this.setInitialState()
+        }
+
+
+
+    }
+
+    handleUpdateMovie = (index) => {
+        console.log('index',index)
+        const { movies } = this.state
+        const movie = movies[index]
+        console.log(movie)
+        this.setState({
+            newMovie:{
+                title: movie.title,
+                img: movie.img,
+                description: movie.description
+            },
+            isUpdating: true
+        })
+    }
 
     render() {
         const { movies } = this.state
         return (
             <>
-                <MovieForm 
-                    handleChangeTitle={this.handleChangeTitle}
-                    handleChangeImg={this.handleChangeImg}
-                    handleChangeDesc={this.handleChangeDesc}
-                    handleAddMovie = {this.handleAddMovie}
+                <MovieForm
+
+                    // handleChangeTitle={this.handleChangeTitle}
+                    // handleChangeImg={this.handleChangeImg}
+                    // handleChangeDesc={this.handleChangeDesc}
+                    handleChangeNewMovie={this.handleChangeNewMovie}
+                    handleAddMovie={this.handleAddMovie}
                     form={this.state.newMovie}
+                    isUpdating={this.state.isUpdating} 
                 />
-                { movies.map(movie =>
-                    <MovieDetail movie={ movie } />
+                { movies.map((movie, index) =>
+                    <MovieDetail 
+                        movie={movie} 
+                        key={index} 
+                        index={index}
+                        handleUpdateMovie={this.handleUpdateMovie} />
                 )}
             </>
         )
