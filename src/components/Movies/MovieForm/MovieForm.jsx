@@ -1,7 +1,7 @@
 export default function MovieForm(props) {
     return (
         <>
-            <h2>{props.isUpdating ? 'Edita' : 'Agrega'} una nueva película</h2>
+            <h2>{props.index ? 'Edita' : 'Agrega'} una nueva película</h2>
             <input 
                 type="text" 
                 name="title" 
@@ -24,8 +24,8 @@ export default function MovieForm(props) {
                 onChange={ props.handleChangeNewMovie }
                 value={props.form.description}
             />
-            <button onClick={props.isUpdating ? () => props.handleUpdateMovie(props.index) : props.handleAddMovie}>
-                {props.isUpdating ? 'Editar' : 'Agregar'} Película 
+            <button onClick={props.index ? () => props.handleUpdateMovie(props.index) : props.handleAddMovie}>
+                {props.index ? 'Editar' : 'Agregar'} Película 
             </button>
         </>
     )
